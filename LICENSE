@@ -1,4 +1,4 @@
-                    GNU GENERAL PUBLIC LICENSE
+GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
@@ -672,3 +672,131 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
+
+================================================================================
+  FIRESIDE READER
+  Copyright (C) 2025  Christopher T. Williams
+================================================================================
+
+OPEN-SOURCE LICENCE GNU GENERAL PUBLIC LICENCE v3.0 OR LATER
+
+Fireside Reader is free and open-source software created and released by:
+
+    Christopher T. Williams
+    Creator, Designer, and Author
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <https://www.gnu.org/licenses/>.
+
+The full text of the GNU General Public License v3 is available at:
+    https://www.gnu.org/licenses/gpl-3.0.txt
+
+NOTE ON THE NAME "FIRESIDE READER"
+"Fireside Reader" is the name of this project, created by Christopher T.
+Williams. 
+
+  THIRD-PARTY DEPENDENCY NOTICES
+  (required by the open-source licences of bundled / linked components)
+
+1. eSpeak NG  Text-to-Speech Engine
+   Licence   : GNU General Public Licence v3.0 or later (GPL-3.0-or-later)
+   Source    : https://github.com/espeak-ng/espeak-ng
+   Copyright : eSpeak NG contributors (see eSpeak NG repository for full list)
+
+   This program links against eSpeak-NG as a shared library for text-to-speech
+   synthesis. eSpeak-NG is GPL-3.0-or-later, which is why this project is also
+   distributed under GPL-3.0-or-later. The eSpeak-NG source code is available
+   at the URL above.
+
+2. MBROLA Diphone Voices  OPTIONAL, USER-INSTALLED, NOT BUNDLED
+   Engine licence  : GNU Affero General Public Licence v3.0 (AGPL-3.0)
+   Voice databases : MBROLA Non-Commercial Licence (separate, voice-specific)
+   Source    : https://github.com/numediart/MBROLA
+               https://github.com/numediart/MBROLA-voices
+   Copyright : TCTS Lab, FacultÃ© Polytechnique de Mons, and contributors
+
+   IMPORTANT â€” READ BEFORE INSTALLING MBROLA VOICES:
+
+   The MBROLA synthesiser engine itself is AGPL-3.0 and may be used freely.
+
+   The MBROLA voice databases (en1, en2, etc.) carry a separate older
+   non-commercial licence. Their terms state:
+
+     "Permission is granted to use this software for non-commercial,
+      non-military purposes only."
+
+   This means:
+     Personal, educational, and non-commercial use â€” fully permitted.
+     Any commercial use of Fireside Reader with MBROLA voices installed
+       requires a separate licence from the voice database copyright holders.
+     Fireside Reader itself does NOT require MBROLA. The built-in eSpeak-NG
+       formant voices (Elder, Statesman, Preacher, Scholar, and their fallbacks)
+       carry no such commercial restriction and work without MBROLA installed.
+
+   MBROLA voice databases are NOT bundled with this software. They are never
+   distributed alongside it. Users who wish to use them must download them
+   independently via scripts/install_mbrola_voices.py, which fetches them
+   directly from the official MBROLA GitHub repository.
+
+   Fireside Reader treats MBROLA as a fully optional, user-installed, external
+   tool. It is not a required dependency. The application detects its presence
+   at runtime and falls back gracefully when it is absent.
+
+3. SDL2 Simple DirectMedia Layer 2
+   Licence   : zlib Licence
+   Source    : https://github.com/libsdl-org/SDL
+   Copyright : 1997-2024 Sam Lantinga <slouken@libsdl.org>
+
+   This software is provided 'as-is', without any express or implied warranty.
+   Permission is granted to anyone to use this software for any purpose,
+   including commercial applications, and to alter it and redistribute it
+   freely, subject to the following restrictions:
+   1. The origin of this software must not be misrepresented.
+   2. Altered source versions must be plainly marked as such.
+   3. This notice may not be removed or altered from any source distribution.
+
+4. SDL2_ttf SDL TrueType Font Rendering
+   Licence   : zlib Licence (same terms as SDL2, above)
+   Source    : https://github.com/libsdl-org/SDL_ttf
+   Copyright : 1997-2024 Sam Lantinga <slouken@libsdl.org>
+
+5. SDL2_mixer SDL Audio Mixer
+   Licence   : zlib Licence (same terms as SDL2, above)
+   Source    : https://github.com/libsdl-org/SDL_mixer
+   Copyright : 1997-2024 Sam Lantinga <slouken@libsdl.org>
+
+6. Tesseract OCR  (optional  for image and photo text extraction)
+   Licence   : Apache Licence 2.0
+   Source    : https://github.com/tesseract-ocr/tesseract
+   Copyright : 2006 Google Inc. and contributors
+
+   Licensed under the Apache License, Version 2.0. You may obtain a copy at:
+   http://www.apache.org/licenses/LICENSE-2.0
+
+7. Leptonica  (Tesseract image-processing dependency)
+   Licence   : BSD 2-Clause "Simplified" Licence
+   Source    : http://leptonica.org
+   Copyright : 2001-2022 Leptonica. All rights reserved.
+
+
+8. Source Texts Founding Fathers Documents
+   All texts retrieved by scripts/fetch_texts.py are United States federal
+   government documents predating 1927 and are in the PUBLIC DOMAIN.
+   No copyright subsists in these texts. Sources include:
+     â€¢ The Avalon Project, Yale Law School  (avalon.law.yale.edu)
+     â€¢ Project Gutenberg  (gutenberg.org)
+     â€¢ Open Liberty Fund  (oll.libertyfund.org)
+
+
+Fireside Reader Copyright (C) 2025  Christopher T. Williams
+Created and designed by Christopher T. Williams
+Released as free and open-source software under GPL-3.0-or-later
