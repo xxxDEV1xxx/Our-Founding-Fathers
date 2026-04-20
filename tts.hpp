@@ -1,7 +1,7 @@
 /*
  * ============================================================================
  *  Fireside Reader
- *  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
+ *  Copyright (C) 2025  Christopher T. Williams All Rights Reserved
  *  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
  *
  *  This file is part of Fireside Reader.
@@ -12,11 +12,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG  GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *    SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR  Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica      BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -27,7 +27,7 @@
 #include <atomic>
 #include <thread>
 
-// â”€â”€ Voice profiles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Voice profiles
 // Each entry is a complete eSpeak-NG parameter set tuned for a classical /
 // old-English character.  The engine tries the "primary" voice first; if it
 // fails to load (e.g. MBROLA not installed) it transparently falls back to the
@@ -59,16 +59,16 @@ inline constexpr VoiceProfile VOICE_PROFILES[] = {
 inline constexpr int NUM_VOICE_PROFILES =
     static_cast<int>(sizeof(VOICE_PROFILES) / sizeof(VOICE_PROFILES[0]));
 
-// â”€â”€ TtsConfig â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// TtsConfig
 struct TtsConfig {
     int profileIndex = 0;   // index into VOICE_PROFILES[]
     int volume       = 17;  // app-level 0-100; scaled to eSpeak 0-200 internally
 };
 
-// â”€â”€ TtsState â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// TtsState
 enum class TtsState { Idle, Playing, Paused, Stopped };
 
-// â”€â”€ TtsEngine â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// TtsEngine
 class TtsEngine {
 public:
     TtsEngine();
