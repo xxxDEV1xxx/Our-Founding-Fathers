@@ -12,11 +12,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *    SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR  Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -27,9 +27,7 @@
 #include <cstring>
 #include <iostream>
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 //  Helpers
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 void SceneRenderer::fillRect(SDL_Renderer* r,
                               int x, int y, int w, int h,
                               uint8_t R, uint8_t G, uint8_t B, uint8_t A)
@@ -66,9 +64,7 @@ void SceneRenderer::circle(SDL_Renderer* r, int cx, int cy, int radius,
     }
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 //  Constructor / Destructor
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 SceneRenderer::SceneRenderer()
     : firePx_(FW * FH, 0), rng_(std::random_device{}())
 {
@@ -83,9 +79,7 @@ SceneRenderer::~SceneRenderer()
     if (bgTex_)   SDL_DestroyTexture(bgTex_);
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 //  init
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 bool SceneRenderer::init(SDL_Renderer* renderer, TTF_Font* pixelFont)
 {
     font_ = pixelFont;
@@ -109,10 +103,8 @@ bool SceneRenderer::init(SDL_Renderer* renderer, TTF_Font* pixelFont)
     return true;
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-//  Fire palette  (blackâ†’deep redâ†’orangeâ†’yellowâ†’white core)
+//  Fire palette  (black deep red orange yellow white core)
 //  Colours hand-matched to Bard's Tale III campfire palette
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 void SceneRenderer::buildFirePalette()
 {
     // 37 colours indexed 0 (cold) â†’ 36 (hottest)
@@ -197,9 +189,7 @@ void SceneRenderer::renderFire(SDL_Renderer* r)
     SDL_RenderCopy(r, fireTex_, nullptr, &fireRect_);
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 //  Static background (rendered once into bgTex_)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 void SceneRenderer::buildBackground(SDL_Renderer* r)
 {
     bgTex_ = SDL_CreateTexture(r,
@@ -223,7 +213,7 @@ void SceneRenderer::buildBackground(SDL_Renderer* r)
     SDL_SetRenderTarget(r, nullptr);
 }
 
-// â”€â”€ Sky â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Sky
 // Deep blue-black gradient matching BT3's night palette
 void SceneRenderer::drawSky(SDL_Renderer* r, const SDL_Rect& /*rc*/)
 {
@@ -240,7 +230,7 @@ void SceneRenderer::drawSky(SDL_Renderer* r, const SDL_Rect& /*rc*/)
     }
 }
 
-// â”€â”€ Moon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Moon
 // Crescent moon upper-right, styled after BT3
 void SceneRenderer::drawMoon(SDL_Renderer* r)
 {
@@ -260,7 +250,7 @@ void SceneRenderer::drawMoon(SDL_Renderer* r)
     }
 }
 
-// â”€â”€ Stars â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Stars
 void SceneRenderer::drawStars(SDL_Renderer* r)
 {
     // Deterministic star field using a fixed seed
@@ -285,7 +275,7 @@ void SceneRenderer::drawStars(SDL_Renderer* r)
     }
 }
 
-// â”€â”€ Pine trees â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Pine trees
 // Silhouette treeline, pixel-art style matching BT3 (layered triangles)
 void SceneRenderer::drawTrees(SDL_Renderer* r)
 {
@@ -334,7 +324,7 @@ void SceneRenderer::drawTrees(SDL_Renderer* r)
     fillRect(r, 0, bY+15, W, H - bY - 15, 0, 0, 0);
 }
 
-// â”€â”€ Ground â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Ground
 void SceneRenderer::drawGround(SDL_Renderer* r)
 {
     int groundY = int(H * 0.64f);
@@ -377,7 +367,7 @@ void SceneRenderer::drawGround(SDL_Renderer* r)
     SDL_SetRenderDrawBlendMode(r, SDL_BLENDMODE_NONE);
 }
 
-// â”€â”€ Stone ring â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Stone ring
 // BT3's campfire has visible grey/blue stones around the fire base
 void SceneRenderer::drawStoneRing(SDL_Renderer* r)
 {
@@ -396,7 +386,7 @@ void SceneRenderer::drawStoneRing(SDL_Renderer* r)
         int sw = 18 + (i%3)*4;
         int sh = 11 + (i%2)*3;
 
-        // Stone face â€“ grey-blue, BT3 palette
+        // Stone face grey-blue, BT3 palette
         uint8_t gv = uint8_t(85 + (i%5)*12);
         fillRect(r, sx-sw/2, sy-sh/2, sw, sh,
                  uint8_t(gv*0.8f), uint8_t(gv*0.85f), gv);
@@ -439,9 +429,7 @@ void SceneRenderer::drawStoneRing(SDL_Renderer* r)
     }
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 //  Glyph cache
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 void SceneRenderer::buildGlyphCache(SDL_Renderer* r)
 {
     if (!font_) return;
@@ -463,9 +451,7 @@ void SceneRenderer::freeGlyphCache()
         if (g.tex) { SDL_DestroyTexture(g.tex); g.tex = nullptr; }
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 //  Text system
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 void SceneRenderer::pushText(const std::string& word)
 {
     // Append word + space to the queue
