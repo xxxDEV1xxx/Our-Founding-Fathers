@@ -6,9 +6,9 @@ Place the following files here before building:
 Any Old-English / blackletter TrueType font with an OFL or public-domain licence.
 
 Recommended free options:
-- **UnifrakturMaguntia** â€” https://fonts.google.com/specimen/UnifrakturMaguntia
-- **MedievalSharp**      â€” https://openfontlibrary.org/en/font/medievalsharp
-- **GoudyTextMT**        â€” available on many font archive sites
+- **UnifrakturMaguntia** https://fonts.google.com/specimen/UnifrakturMaguntia
+- **MedievalSharp**  https://openfontlibrary.org/en/font/medievalsharp
+- **GoudyTextMT**  available on many font archive sites
 
 Rename the downloaded .ttf to `OldEnglish.ttf`.
 
