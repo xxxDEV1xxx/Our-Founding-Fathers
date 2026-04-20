@@ -1,7 +1,6 @@
 # =============================================================================
-#  Fireside Reader â€” install_mbrola_voices.py
-#  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
-#  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+#  Fireside Reader install_mbrola_voices.py
+#  Copyright (C) 2025  Christopher T. Williams  All Rights Reserved
 #
 #  Distributed under GPL-3.0-or-later (eSpeak-NG linkage requirement).
 #  See LICENSE for full terms and third-party dependency notices.
@@ -35,7 +34,7 @@ try:
 except ImportError:
     sys.exit("Install deps:  pip install requests")
 
-# â”€â”€ MBROLA voice files (GitHub release, free for non-commercial use) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# MBROLA voice files (GitHub release, free for non-commercial use)
 VOICES = [
     {
         "name"    : "en1",
@@ -93,10 +92,10 @@ def install_voice(voice: dict, dest_dir: pathlib.Path) -> None:
 
     dest_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"  â†“  Downloading {name}  ({voice['desc']}) â€¦")
+    print(f" Downloading {name}  ({voice['desc']})¦")
     r = requests.get(url, headers=HEADERS, timeout=30, stream=True)
     if r.status_code != 200:
-        print(f"  âœ—  HTTP {r.status_code} for {url}")
+        print(f" —  HTTP {r.status_code} for {url}")
         return
 
     total = int(r.headers.get("content-length", 0))
@@ -108,7 +107,7 @@ def install_voice(voice: dict, dest_dir: pathlib.Path) -> None:
             if total:
                 pct = downloaded * 100 // total
                 print(f"\r     {pct:3d}%", end="", flush=True)
-    print(f"\r  âœ“  {name} saved to {dest}  ({downloaded:,} bytes)")
+    print(f"\r {name} saved to {dest}  ({downloaded:,} bytes)")
 
 
 def check_mbrola_binary() -> bool:
@@ -122,7 +121,7 @@ def check_mbrola_binary() -> bool:
 
 
 def main():
-    print("Fireside Reader â€” MBROLA voice installer")
+    print("Fireside Reader MBROLA voice installer")
     print("=" * 44)
 
     dest = mbrola_dir()
@@ -137,14 +136,14 @@ def main():
     # Check mbrola binary
     if not check_mbrola_binary():
         sys_name = platform.system()
-        print("âš   The 'mbrola' binary was not found on your PATH.")
+        print("The 'mbrola' binary was not found on your PATH.")
         print("   eSpeak-NG uses MBROLA as a subprocess for diphone synthesis.")
         print()
         if sys_name == "Linux":
-            print("   Install it with:")
-            print("     sudo apt install mbrola")
-            print("   or:")
-            print("     sudo dnf install mbrola")
+            print("  Install it with:")
+            print("sudo apt install mbrola")
+            print(" or:")
+            print("sudo dnf install mbrola")
         elif sys_name == "Windows":
             print("   Download MbrolaTools from:")
             print("   https://github.com/numediart/MBROLA/releases")
@@ -153,7 +152,7 @@ def main():
         print("   Without mbrola, Fireside Reader will automatically fall back")
         print("   to the built-in eSpeak-NG formant voices (Elder / Statesman).")
     else:
-        print("âœ“  mbrola binary found â€“ MBROLA voices fully operational.")
+        print(" mbrola binary found MBROLA voices fully operational.")
 
     print()
     print("Done.  Restart Fireside Reader to use the new voices.")
