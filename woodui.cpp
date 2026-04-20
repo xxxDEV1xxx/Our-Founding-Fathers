@@ -12,11 +12,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG  GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *    SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR  Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica      BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -27,7 +27,7 @@
 #include <random>
 #include <string>
 
-// â”€â”€ Grain state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Grain state
 static std::vector<float> grainMap;  // per-pixel grain offset
 static int grainW = 0, grainH = 0;
 static std::mt19937 grainRng(42);
@@ -41,7 +41,7 @@ void WoodUI::initGrain(unsigned seed)
     for (auto& v : grainMap) v = d(grainRng);
 }
 
-// â”€â”€ Wood panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Wood panel 
 void WoodUI::drawWoodPanel(SDL_Renderer* r, const SDL_Rect& rect)
 {
     // Base warm brown layers
@@ -83,7 +83,7 @@ void WoodUI::drawWoodPanel(SDL_Renderer* r, const SDL_Rect& rect)
     }
 }
 
-// â”€â”€ Raised 3-D button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Raised 3-D button 
 void WoodUI::drawButton(SDL_Renderer* r, TTF_Font* font,
                         const SDL_Rect& rect, const std::string& label,
                         bool pressed)
@@ -135,7 +135,7 @@ void WoodUI::drawButton(SDL_Renderer* r, TTF_Font* font,
     }
 }
 
-// â”€â”€ Tooltip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Tooltip 
 void WoodUI::drawTooltip(SDL_Renderer* r, TTF_Font* font,
                          int x, int y,
                          const std::string& text,
@@ -180,7 +180,7 @@ void WoodUI::drawTooltip(SDL_Renderer* r, TTF_Font* font,
     SDL_FreeSurface(surf);
 }
 
-// â”€â”€ Log silhouette â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Log silhouette 
 void WoodUI::drawLogSilhouette(SDL_Renderer* r, const SDL_Rect& destRect)
 {
     // Two crossed log shapes as filled rounded rectangles
@@ -202,7 +202,7 @@ void WoodUI::drawLogSilhouette(SDL_Renderer* r, const SDL_Rect& destRect)
     }
 }
 
-// â”€â”€ Plain label â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Plain label
 void WoodUI::drawLabel(SDL_Renderer* r, TTF_Font* font,
                        int x, int y, const std::string& text,
                        SDL_Color col)
