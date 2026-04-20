@@ -1,8 +1,7 @@
 /*
  * ============================================================================
  *  Fireside Reader
- *  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
- *  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+ *  Copyright (C) 2025  Christopher T. Williams  All Rights Reserved
  *
  *  This file is part of Fireside Reader.
  *
@@ -12,11 +11,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG  GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *    SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica      â€” BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -30,7 +29,7 @@
 #include <cstdint>
 #include <random>
 
-// â”€â”€ TextGlyph â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// TextGlyph
 // One character cell in the rolling text display.
 struct TextGlyph {
     char    ch        = ' ';
@@ -40,7 +39,7 @@ struct TextGlyph {
     bool    done      = false;  // fully faded out and can be recycled
 };
 
-// â”€â”€ TextLine â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// TextLine
 // One line of glyphs as displayed on screen.
 struct TextLine {
     std::vector<TextGlyph> glyphs;
@@ -49,14 +48,14 @@ struct TextLine {
     float lineAlpha     = 1.f;     // whole-line alpha for gradient fade-out
 };
 
-// â”€â”€ SceneRenderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// Renders the complete Bard's Tale III inspired night campfire scene:
-//   â€¢ Pixel-art night sky with stars and crescent moon
-//   â€¢ Silhouette pine tree treeline
-//   â€¢ Stone ring campfire with Doom-style fire simulation
-//   â€¢ Ground with grass / dirt texture
-//   â€¢ Rolling letter-by-letter text panel (top-left, like BT3)
-//   â€¢ Gradient fade-in on arrival, fade-out once 10 lines accumulate
+// SceneRenderer 
+// Renders the complete Bard's Tale III INSPIRED night campfire scene:
+//   Pixel-art night sky with stars and crescent moon
+//   Silhouette pine tree treeline
+//   Stone ring campfire with Doom-style fire simulation
+//   Ground with grass / dirt texture
+//   Rolling letter-by-letter text panel (top-left, like BT3)
+//   Gradient fade-in on arrival, fade-out once 10 lines accumulate
 class SceneRenderer {
 public:
     SceneRenderer();
@@ -88,7 +87,7 @@ public:
     static constexpr int H = 768;
 
 private:
-    // â”€â”€ Fire simulation (Doom algorithm) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Fire simulation (Doom algorithm)
     static constexpr int FW = 160;   // fire sim width  (pixels)
     static constexpr int FH = 100;   // fire sim height (pixels)
 
@@ -106,7 +105,7 @@ private:
     // Fire blit rect on screen (the campfire pit area)
     SDL_Rect fireRect_ { 360, 390, 300, 200 };
 
-    // â”€â”€ Static scene elements (drawn once onto a cached texture) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Static scene elements (drawn once onto a cached texture)
     SDL_Texture* bgTex_ = nullptr;   // sky + trees + ground (static)
     void buildBackground(SDL_Renderer* r);
 
@@ -117,7 +116,7 @@ private:
     void drawGround   (SDL_Renderer* r);
     void drawStoneRing(SDL_Renderer* r);
 
-    // â”€â”€ Rolling text â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Rolling text
     TTF_Font* font_       = nullptr;
     int       fontH_      = 18;       // pixel height of one text line
     int       lineSpacing_= 22;       // pixels between lines
@@ -149,10 +148,10 @@ private:
     // Render one glyph with given alpha at pixel position.
     void renderGlyph(SDL_Renderer* r, char ch, int x, int y, uint8_t alpha);
 
-    // â”€â”€ Tooltip state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Tooltip state
     float tooltipAlpha_ = 0.f;   // smooth appear / disappear
 
-    // â”€â”€ Misc â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Misc
     // Glyph cache to avoid re-rendering identical chars every frame.
     struct GlyphCache {
         SDL_Texture* tex = nullptr;
