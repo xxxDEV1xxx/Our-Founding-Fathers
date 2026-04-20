@@ -1,8 +1,7 @@
 /*
  * ============================================================================
  *  Fireside Reader
- *  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
- *  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+ *  Copyright (C) 2025  Christopher T. Williams All Rights Reserved
  *
  *  This file is part of Fireside Reader.
  *
@@ -12,11 +11,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG  GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *    SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR  Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica  BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -34,7 +33,7 @@
 
 namespace fs = std::filesystem;
 
-// â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Helpers
 std::string Repository::toLower(const std::string& s)
 {
     std::string r = s;
@@ -62,10 +61,10 @@ bool Repository::isHtmlFile(const std::string& ext)
     return e==".html"||e==".htm"||e==".webx";
 }
 
-// â”€â”€ Constructor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Constructor
 Repository::Repository(const std::string& rootDir) : rootDir_(rootDir) {}
 
-// â”€â”€ scan â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// scan
 bool Repository::scan()
 {
     authors_.clear();
@@ -105,12 +104,12 @@ bool Repository::scan()
     return true;
 }
 
-// â”€â”€ loadBookText â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// loadBookText
 std::string Repository::loadBookText(const std::string& path)
 {
     std::string ext = fs::path(path).extension().string();
 
-    // â”€â”€ Plain text (preferred path â€“ no OCR) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    //  Plain text (preferred path no OCR) 
     if (isTextFile(ext)) {
         std::ifstream in(path, std::ios::binary);
         if (!in) { std::cerr << "[Repo] Cannot open: " << path << "\n"; return {}; }
@@ -119,7 +118,7 @@ std::string Repository::loadBookText(const std::string& path)
         return ss.str();
     }
 
-    // â”€â”€ HTML â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // HTML
     if (isHtmlFile(ext)) {
         std::ifstream in(path, std::ios::binary);
         if (!in) return {};
@@ -128,7 +127,7 @@ std::string Repository::loadBookText(const std::string& path)
         return stripHtmlTags(ss.str());
     }
 
-    // â”€â”€ Images â†’ Tesseract OCR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Images Tesseract OCR
     if (isImageFile(ext)) {
         static OcrEngine ocr;
         static bool ocrReady = false;
@@ -144,7 +143,7 @@ std::string Repository::loadBookText(const std::string& path)
     return {};
 }
 
-// â”€â”€ stripHtmlTags â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// stripHtmlTags
 std::string Repository::stripHtmlTags(const std::string& html)
 {
     std::string out;
@@ -171,7 +170,7 @@ std::string Repository::stripHtmlTags(const std::string& html)
     return clean;
 }
 
-// â”€â”€ paginate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// paginate
 std::vector<PageLocation> Repository::paginate(const std::string& text,
                                                 std::size_t linesPerPage)
 {
