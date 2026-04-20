@@ -1,8 +1,7 @@
 /*
  * ============================================================================
  *  Fireside Reader
- *  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
- *  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+ *  Copyright (C) 2025  Christopher T. Williams  All Rights Reserved
  *
  *  This file is part of Fireside Reader.
  *
@@ -12,11 +11,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG  GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *    SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica   BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -25,7 +24,7 @@
 #include <algorithm>
 #include <cstring>
 
-// â”€â”€ Doom-style fire palette (black â†’ red â†’ orange â†’ yellow â†’ white) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Doom-style fire palette (black red orange yellow  white)
 void FireSim::buildPalette()
 {
     // 37 entries (index 0 = cold/black, 36 = hottest/white)
@@ -55,7 +54,7 @@ void FireSim::buildPalette()
     palette_[0] = {0,0,0,255};   // Ensure cold = pure black
 }
 
-// â”€â”€ Constructor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Constructor
 FireSim::FireSim()
     : pixels_(FIRE_W * FIRE_H, 0),
       rng_(std::random_device{}())
@@ -68,7 +67,7 @@ FireSim::~FireSim()
     if (texture_) SDL_DestroyTexture(texture_);
 }
 
-// â”€â”€ init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// init
 bool FireSim::init(SDL_Renderer* renderer)
 {
     texture_ = SDL_CreateTexture(renderer,
@@ -81,7 +80,7 @@ bool FireSim::init(SDL_Renderer* renderer)
     return true;
 }
 
-// â”€â”€ seed: ignite the bottom row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// seed: ignite the bottom row
 void FireSim::seed()
 {
     int row = FIRE_H - 1;
@@ -89,7 +88,7 @@ void FireSim::seed()
         pixels_[row * FIRE_W + x] = 36;    // maximum heat
 }
 
-// â”€â”€ spreadFire (single pixel) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// spreadFire (single pixel)
 void FireSim::spreadFire(int src)
 {
     std::uniform_int_distribution<int> jitter(0, 3);
@@ -101,7 +100,7 @@ void FireSim::spreadFire(int src)
         std::max(0, static_cast<int>(pixels_[src]) - decay));
 }
 
-// â”€â”€ update â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// update
 void FireSim::update()
 {
     // Re-seed the bottom row with random intensity for a realistic flicker
@@ -115,7 +114,7 @@ void FireSim::update()
             spreadFire(y * FIRE_W + x);
 }
 
-// â”€â”€ render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// render
 void FireSim::render(SDL_Renderer* renderer, const SDL_Rect& destRect)
 {
     void* pixels;
@@ -139,7 +138,7 @@ void FireSim::render(SDL_Renderer* renderer, const SDL_Rect& destRect)
     SDL_RenderCopy(renderer, texture_, nullptr, &destRect);
 }
 
-// â”€â”€ hotspot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// hotspot
 SDL_Point FireSim::hotspot(const SDL_Rect& destRect)
 {
     return { destRect.x + destRect.w / 2,
