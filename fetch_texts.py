@@ -1,7 +1,6 @@
 # =============================================================================
-#  Fireside Reader â€” fetch_texts.py
-#  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
-#  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+#  Fireside Reader fetch_texts.py
+#  Copyright (C) 2025  Christopher T. Williams  All Rights Reserved
 #
 #  Distributed under GPL-3.0-or-later (eSpeak-NG linkage requirement).
 #  See LICENSE for full terms and third-party dependency notices.
@@ -37,16 +36,16 @@ try:
 except ImportError:
     sys.exit("Install deps:  pip install requests beautifulsoup4 lxml")
 
-# â”€â”€ Output root â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Output root
 OUT_ROOT = pathlib.Path("data/authors")
 DELAY    = 1.2   # seconds between requests (be a good citizen)
 
-# â”€â”€ Source catalogue â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Source catalogue
 # Format: (author_name, document_title, url, content_selector_css)
 # Sources: Avalon Project (Yale Law), Founders Online (UVA/NARA), Library of Congress
 SOURCES = [
 
-    # â”€â”€ George Washington â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # George Washington
     ("George Washington",
      "Farewell Address 1796",
      "https://avalon.law.yale.edu/18th_century/washing.asp",
@@ -62,7 +61,7 @@ SOURCES = [
      "https://avalon.law.yale.edu/18th_century/wash2.asp",
      "div.document"),
 
-    # â”€â”€ Thomas Jefferson â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # Thomas Jefferson
     ("Thomas Jefferson",
      "Declaration of Independence 1776",
      "https://avalon.law.yale.edu/18th_century/declare.asp",
@@ -83,7 +82,7 @@ SOURCES = [
      "https://avalon.law.yale.edu/18th_century/jeffvir.asp",
      "div.document"),
 
-    # â”€â”€ James Madison â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # James Madison
     ("James Madison",
      "Federalist No 10",
      "https://avalon.law.yale.edu/18th_century/fed10.asp",
@@ -99,7 +98,7 @@ SOURCES = [
      "https://avalon.law.yale.edu/18th_century/madison.asp",
      "div.document"),
 
-    # â”€â”€ Alexander Hamilton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # Alexander Hamilton
     ("Alexander Hamilton",
      "Federalist No 1",
      "https://avalon.law.yale.edu/18th_century/fed01.asp",
@@ -120,7 +119,7 @@ SOURCES = [
      "https://avalon.law.yale.edu/18th_century/fed78.asp",
      "div.document"),
 
-    # â”€â”€ Benjamin Franklin â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # Benjamin Franklin
     ("Benjamin Franklin",
      "Autobiography Part I",
      "https://www.gutenberg.org/cache/epub/20203/pg20203.txt",
@@ -136,7 +135,7 @@ SOURCES = [
      "https://www.gutenberg.org/cache/epub/3928/pg3928.txt",
      None),
 
-    # â”€â”€ John Adams â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # John Adams
     ("John Adams",
      "Thoughts on Government 1776",
      "https://avalon.law.yale.edu/18th_century/thoughts.asp",
@@ -152,13 +151,13 @@ SOURCES = [
      "https://avalon.law.yale.edu/18th_century/adam1.asp",
      "div.document"),
 
-    # â”€â”€ Patrick Henry â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # Patrick Henry
     ("Patrick Henry",
      "Give Me Liberty or Give Me Death 1775",
      "https://avalon.law.yale.edu/18th_century/patrick.asp",
      "div.document"),
 
-    # â”€â”€ Thomas Paine â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # Thomas Paine
     ("Thomas Paine",
      "Common Sense 1776",
      "https://www.gutenberg.org/cache/epub/147/pg147.txt",
@@ -169,20 +168,20 @@ SOURCES = [
      "https://avalon.law.yale.edu/18th_century/crisis1776.asp",
      "div.document"),
 
-    # â”€â”€ James Monroe â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # James Monroe
     ("James Monroe",
      "Monroe Doctrine 1823",
      "https://avalon.law.yale.edu/19th_century/monroe.asp",
      "div.document"),
 
-    # â”€â”€ Roger Sherman â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # Roger Sherman
     ("Roger Sherman",
      "A Caveat Against Injustice 1752",
      "https://avalon.law.yale.edu/18th_century/sherman.asp",
      "div.document"),
 ]
 
-# â”€â”€ Utilities â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Utilities
 HEADERS = {
     "User-Agent": (
         "FiresideReader/1.0 (educational; public-domain text retrieval; "
@@ -241,11 +240,11 @@ def save(author: str, title: str, text: str) -> pathlib.Path:
     return dest
 
 
-# â”€â”€ Main â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Main
 def main() -> None:
     total = len(SOURCES)
     for i, (author, title, url, selector) in enumerate(SOURCES, 1):
-        print(f"[{i:02d}/{total}] {author} â€” {title}")
+        print(f"[{i:02d}/{total}] {author}  {title}")
         try:
             if selector is None:
                 text = fetch_plain_text(url)
@@ -253,14 +252,14 @@ def main() -> None:
                 text = fetch_html_text(url, selector)
 
             if len(text.strip()) < 200:
-                print(f"         âš   Very short response ({len(text)} chars) â€“ skipping")
+                print(f"       Very short response ({len(text)} chars) skipping")
                 continue
 
             path = save(author, title, text)
-            print(f"         âœ“  {len(text):,} chars â†’ {path}")
+            print(f"  {len(text):,} chars {path}")
 
         except Exception as exc:
-            print(f"         âœ—  ERROR: {exc}")
+            print(f" —  ERROR: {exc}")
 
         time.sleep(DELAY)
 
