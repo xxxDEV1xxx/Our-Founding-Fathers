@@ -1,8 +1,7 @@
 /*
  * ============================================================================
  *  Fireside Reader
- *  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
- *  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+ *  Copyright (C) 2025  Christopher T. Williams  All Rights Reserved
  *
  *  This file is part of Fireside Reader.
  *
@@ -12,11 +11,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG  GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *   SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR  Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica      BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -27,7 +26,7 @@
 #include <cctype>
 #include <cstring>
 
-// â”€â”€ eSpeak-NG header detection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// eSpeak-NG header detection
 #if __has_include(<espeak-ng/speak_lib.h>)
 #  include <espeak-ng/speak_lib.h>
 #  define ESPEAK_HEADER_OK 1
@@ -39,10 +38,10 @@
 #  define ESPEAK_HEADER_OK 0
 #endif
 
-// â”€â”€ Global engine pointer for the C callback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Global engine pointer for the C callback
 static TtsEngine* g_ttsEngine = nullptr;
 
-// â”€â”€ eSpeak callback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// eSpeak callback 
 #if ESPEAK_HEADER_OK
 static int espeakEventCallback(short* /*wav*/, int /*numSamples*/,
                                 espeak_EVENT* events)
@@ -58,7 +57,7 @@ static int espeakEventCallback(short* /*wav*/, int /*numSamples*/,
 }
 #endif
 
-// â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Helpers
 // Attempt to set a voice; return false if eSpeak rejects it.
 /*static*/ bool TtsEngine::tryVoice(const char* voiceName)
 {
@@ -87,8 +86,8 @@ static int espeakEventCallback(short* /*wav*/, int /*numSamples*/,
     // to the voice name (already encoded in the profile name, e.g. +croak).
     // As a belt-and-suspenders measure we nudge PITCH_RANGE to give a more
     // declamatory, classical cadence.
-    //   Low range â†’ flat, authoritative preacher delivery
-    //   High range â†’ expressive, conversational
+    //   Low range  flat, authoritative preacher delivery
+    //   High range  expressive, conversational
     int pitchRange = std::max(0, 40 - p.flutter / 4);   // 0-40
     espeak_SetParameter(espeakRANGE, pitchRange, 0);
 #else
@@ -96,7 +95,7 @@ static int espeakEventCallback(short* /*wav*/, int /*numSamples*/,
 #endif
 }
 
-// â”€â”€ Constructor / Destructor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Constructor / Destructor
 TtsEngine::TtsEngine()  { g_ttsEngine = this; }
 TtsEngine::~TtsEngine() {
     stop();
@@ -107,14 +106,14 @@ TtsEngine::~TtsEngine() {
     if (g_ttsEngine == this) g_ttsEngine = nullptr;
 }
 
-// â”€â”€ init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// init
 bool TtsEngine::init(const TtsConfig& cfg)
 {
     cfg_ = cfg;
 
 #if ESPEAK_HEADER_OK
-    // AUDIO_OUTPUT_PLAYBACK â†’ eSpeak uses the system audio device directly.
-    // buflength=0 â†’ use eSpeak default (500 ms).
+    // AUDIO_OUTPUT_PLAYBACK eSpeak uses the system audio device directly.
+    // buflength=0 use eSpeak default (500 ms).
     int sr = espeak_Initialize(AUDIO_OUTPUT_PLAYBACK, 0, nullptr, 0);
     if (sr < 0) {
         std::cerr << "[TTS] espeak_Initialize failed (returned " << sr << ")\n";
@@ -169,7 +168,7 @@ bool TtsEngine::init(const TtsConfig& cfg)
 #endif
 }
 
-// â”€â”€ setProfile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// setProfile
 void TtsEngine::setProfile(int idx)
 {
     idx = std::clamp(idx, 0, NUM_VOICE_PROFILES - 1);
@@ -182,7 +181,7 @@ void TtsEngine::setProfile(int idx)
 #endif
 }
 
-// â”€â”€ setVolume â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// setVolume
 void TtsEngine::setVolume(int pct)
 {
     cfg_.volume = std::clamp(pct, 0, 100);
@@ -191,13 +190,13 @@ void TtsEngine::setVolume(int pct)
 #endif
 }
 
-// â”€â”€ profileName â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// profileName
 const char* TtsEngine::profileName() const
 {
     return VOICE_PROFILES[activeProfile_].name;
 }
 
-// â”€â”€ playText â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// playText
 void TtsEngine::playText(const std::string& text, std::size_t startIndex)
 {
     stop();
@@ -233,7 +232,7 @@ void TtsEngine::threadFunc(std::size_t startIndex)
 #endif
 }
 
-// â”€â”€ stop / pause / resume â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+//stop / pause / resume
 void TtsEngine::stop()
 {
 #if ESPEAK_HEADER_OK
@@ -261,7 +260,7 @@ void TtsEngine::resume()
     ttsThread_ = std::thread([this, idx]{ threadFunc(idx); });
 }
 
-// â”€â”€ onWordEvent â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// onWordEvent
 void TtsEngine::onWordEvent(std::size_t charPos)
 {
     currentIndex_ = charPos;
@@ -278,7 +277,7 @@ void TtsEngine::onWordEvent(std::size_t charPos)
     }
 }
 
-// â”€â”€ seekToWordBoundary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// seekToWordBoundary
 /*static*/ std::size_t TtsEngine::seekToWordBoundary(const std::string& text,
                                                       std::size_t index)
 {
