@@ -1,8 +1,7 @@
 /*
  * ============================================================================
  *  Fireside Reader
- *  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
- *  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+ *  Copyright (C) 2025  Christopher T. Williams All Rights Reserved
  *
  *  This file is part of Fireside Reader.
  *
@@ -12,11 +11,11 @@
  *  dependency notices, and the MBROLA non-commercial voice licence notice.
  *
  *  Third-party components used by this file:
- *    â€¢ eSpeak-NG  â€” GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
- *    â€¢ MBROLA voices (en1/en2) â€” Non-commercial only  github.com/numediart/MBROLA-voices
- *    â€¢ SDL2 / SDL2_ttf / SDL2_mixer â€” zlib licence    libsdl.org
- *    â€¢ Tesseract OCR  â€” Apache-2.0    github.com/tesseract-ocr/tesseract
- *    â€¢ Leptonica      â€” BSD-2-Clause  leptonica.org
+ *    eSpeak-NG GPL-3.0-or-later   github.com/espeak-ng/espeak-ng
+ *    MBROLA voices (en1/en2) Non-commercial only  github.com/numediart/MBROLA-voices
+ *    SDL2 / SDL2_ttf / SDL2_mixer zlib licence    libsdl.org
+ *    Tesseract OCR Apache-2.0    github.com/tesseract-ocr/tesseract
+ *    Leptonica    BSD-2-Clause  leptonica.org
  *
  *  Designed and authored by: Christopher T. Williams
  * ============================================================================
@@ -31,7 +30,7 @@
 // Speed-stage jump sizes in characters (approx words * avg-word-length)
 static constexpr std::size_t STAGE_CHARS[] = {40, 120, 200, 400, 800};
 
-// â”€â”€ Ctor / Dtor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+//  Ctor / Dtor
 App::App()  {}
 App::~App() {
     stopAmbient();
@@ -47,7 +46,7 @@ App::~App() {
     delete repo_;
 }
 
-// â”€â”€ init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// init
 bool App::init(const std::string& dataRoot)
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
@@ -76,7 +75,7 @@ bool App::init(const std::string& dataRoot)
                                    SDL_RENDERER_PRESENTVSYNC);
     if (!renderer_) { std::cerr << SDL_GetError(); return false; }
 
-    // â”€â”€ Fonts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Fonts
     // Try a bundled font first; fall back to any TTF in the assets folder.
     font_ = TTF_OpenFont("assets/OldEnglish.ttf", 15);
     if (!font_) font_ = TTF_OpenFont("assets/font.ttf", 15);
@@ -86,28 +85,28 @@ bool App::init(const std::string& dataRoot)
     smallFont_ = TTF_OpenFont("assets/OldEnglish.ttf", 12);
     if (!smallFont_) smallFont_ = font_;
 
-    // â”€â”€ Fire ambient sound â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Fire ambient sound
     // Try OGG/MP3 first (SDL_mixer with OGG support), fall back to .wav
     fireChunk_ = Mix_LoadWAV("assets/fire_loop.ogg");
     if (!fireChunk_) fireChunk_ = Mix_LoadWAV("assets/fire_loop.wav");
     if (!fireChunk_) std::cerr << "[App] No fire_loop audio found\n";
 
-    // â”€â”€ TTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // TTS
     TtsConfig cfg;
     cfg.profileIndex = 0;       // "Orator (MBROLA en1)" â€“ best quality
     cfg.volume       = ttsVol_;
     if (!tts_.init(cfg))
         std::cerr << "[App] TTS init failed â€“ voice will be unavailable\n";
 
-    // â”€â”€ Repository â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Repository
     repo_ = new Repository(dataRoot);
     repo_->scan();
 
-    // â”€â”€ UI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // UI
     WoodUI::initGrain(0xDEAD);
     scene_.init(renderer_, font_);
 
-    // Wire TTS word events â†’ scene text display
+    // Wire TTS word events scene text display
     tts_.setWordCallback([this](const std::string& word){
         scene_.pushText(word);
     });
@@ -117,7 +116,7 @@ bool App::init(const std::string& dataRoot)
     return true;
 }
 
-// â”€â”€ buildMainButtons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// buildMainButtons
 void App::buildMainButtons()
 {
     mainBtns_.clear();
@@ -142,7 +141,7 @@ void App::buildMainButtons()
     }
 }
 
-// â”€â”€ buildControlButtons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// buildControlButtons
 void App::buildControlButtons()
 {
     ctrlBtns_.clear();
@@ -166,19 +165,19 @@ void App::buildControlButtons()
         ctrlBtns_.push_back(b);
     };
 
-    // â”€â”€ Left end-cap: REVERSE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Left end-cap: REVERSE
     make(cx - 4*midW - capW/2, capW, "REV", [this]() {
         pb_.revStage = (pb_.revStage + 1) % PlaybackContext::NUM_STAGES;
         int s = PlaybackContext::SPEED_STAGES[pb_.revStage];
         seekBy(-static_cast<int>(STAGE_CHARS[pb_.revStage]), s);
     });
 
-    // â”€â”€ Left inner buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Left inner buttons
     make(cx - 3*midW, midW, "PrvPg",   [this](){ changePage(-1);   });
     make(cx - 2*midW, midW, "PrvBk",   [this](){ changeBook(-1);   });
     make(cx - 1*midW, midW, "PrvAuth", [this](){ changeAuthor(-1); });
 
-    // â”€â”€ Centre: PLAY/PAUSE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Centre: PLAY/PAUSE
     make(cx, playW, "PLAY", [this]() {
         auto st = tts_.state();
         if (st == TtsState::Playing) {
@@ -190,18 +189,18 @@ void App::buildControlButtons()
         }
     });
 
-    // â”€â”€ Right inner buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Right inner buttons
     make(cx + 1*midW, midW, "NxtAuth", [this](){ changeAuthor(1);  });
     make(cx + 2*midW, midW, "NxtBk",   [this](){ changeBook(1);    });
     make(cx + 3*midW, midW, "NxtPg",   [this](){ changePage(1);    });
 
-    // â”€â”€ Right end-cap: FORWARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Right end-cap: FORWARD
     make(cx + 4*midW + capW/2, capW, "FWD", [this]() {
         pb_.fwdStage = (pb_.fwdStage + 1) % PlaybackContext::NUM_STAGES;
         seekBy(static_cast<int>(STAGE_CHARS[pb_.fwdStage]), pb_.fwdStage);
     });
 
-    // â”€â”€ Volume row (below control bar) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Volume row (below control bar)
     const int volY  = barY + btnH + 12;
     const int volW  = 44;
     const int volH  = 28;
@@ -243,7 +242,7 @@ void App::buildControlButtons()
     ctrlBtns_.push_back(vprof);
 }
 
-// â”€â”€ run / mainLoop â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// run / mainLoop
 void App::run() { mainLoop(); }
 
 void App::mainLoop()
@@ -257,7 +256,7 @@ void App::mainLoop()
     }
 }
 
-// â”€â”€ handleEvent â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// handleEvent
 void App::handleEvent(const SDL_Event& e)
 {
     if (e.type == SDL_QUIT) { running_ = false; return; }
@@ -276,7 +275,7 @@ void App::handleEvent(const SDL_Event& e)
         return;
     }
 
-    // â”€â”€ Fire screen events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Fire screen events
     if (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN) {
         // Stop reverse/forward speed-seek on any input if playing
         if (e.type == SDL_MOUSEBUTTONDOWN) {
@@ -308,7 +307,7 @@ void App::handleEvent(const SDL_Event& e)
     }
 }
 
-// â”€â”€ update â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// update
 void App::update()
 {
     if (screen_ == Screen::Fire) {
@@ -325,7 +324,7 @@ void App::update()
     }
 }
 
-// â”€â”€ render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// render
 void App::render()
 {
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
@@ -337,7 +336,7 @@ void App::render()
     SDL_RenderPresent(renderer_);
 }
 
-// â”€â”€ renderMainMenu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// renderMainMenu
 void App::renderMainMenu()
 {
     SDL_Rect fullScreen { 0, 0, WIN_W, WIN_H };
@@ -355,13 +354,13 @@ void App::renderMainMenu()
     }
 }
 
-// â”€â”€ renderFireScreen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// renderFireScreen
 void App::renderFireScreen()
 {
-    // â”€â”€ Bard's Tale III scene (sky + trees + campfire + rolling text) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Bard's Tale III scene (sky + trees + campfire + rolling text)
     scene_.render(renderer_);
 
-    // â”€â”€ Control bar overlay (dark semi-transparent strip at bottom) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Control bar overlay (dark semi-transparent strip at bottom)
     SDL_Rect barBg { 0, WIN_H - 155, WIN_W, 155 };
     SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer_, 8, 5, 2, 210);
@@ -397,7 +396,7 @@ void App::renderFireScreen()
             auto& a = authors[pb_.authorIdx];
             std::string info = a.name;
             if (pb_.bookIdx < (int)a.books.size())
-                info += "  Ã¢Â€Â”  " + a.books[pb_.bookIdx].title;
+                info += "  ”  " + a.books[pb_.bookIdx].title;
             if (!pb_.pages.empty())
                 info += "  [" + std::to_string(pb_.pageIdx+1)
                       + "/" + std::to_string(pb_.pages.size()) + "]";
@@ -411,7 +410,7 @@ void App::renderFireScreen()
                           {140,110,50,255});
     }
 
-    // â”€â”€ Tooltip (fire hotspot hover) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Tooltip (fire hotspot hover)
     int mx, my;
     SDL_GetMouseState(&mx, &my);
     scene_.renderTooltip(renderer_, mx, my,
@@ -419,7 +418,7 @@ void App::renderFireScreen()
                          "Designed by: Christopher Williams ~");
 }
 
-// â”€â”€ enterFireScreen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// enterFireScreen
 void App::enterFireScreen(int authorIdx)
 {
     pb_.authorIdx = authorIdx;
@@ -436,7 +435,7 @@ void App::enterFireScreen(int authorIdx)
     startAmbient();
 }
 
-// â”€â”€ loadCurrentBook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// loadCurrentBook
 void App::loadCurrentBook()
 {
     auto& authors = repo_->authors();
@@ -454,7 +453,7 @@ void App::loadCurrentBook()
               << pb_.pages.size() << " pages)\n";
 }
 
-// â”€â”€ startReading / stopReading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// startReading / stopReading
 void App::startReading()
 {
     tts_.setVolume(ttsVol_);
@@ -467,4 +466,4 @@ void App::stopReading()
     scene_.clearText();
 }
 
-// â”€â”€ changePage â”€â”€â”€â”€â”
+// changePage 
