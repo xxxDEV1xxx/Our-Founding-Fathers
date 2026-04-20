@@ -2,7 +2,6 @@
  * ============================================================================
  *  Fireside Reader
  *  Copyright (C) 2025  Christopher T. Williams All Rights Reserved
- *  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
  *
  *  This file is part of Fireside Reader.
  *
