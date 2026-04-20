@@ -61,29 +61,29 @@ cmake --build build -j$(nproc)
 
 ```
 FiresideReader/
-â”œâ”€â”€ CMakeLists.txt
-â”œâ”€â”€ README.md
-â”œâ”€â”€ assets/
-â”‚   â”œâ”€â”€ OldEnglish.ttf        â† add manually (free OFL font)
-â”‚   â””â”€â”€ fire_loop.ogg/.wav    â† add manually (CC0 audio)
-â”œâ”€â”€ data/
-â”‚   â””â”€â”€ authors/
-â”‚       â”œâ”€â”€ George Washington/
-â”‚       â”‚   â”œâ”€â”€ Farewell Address 1796.txt
-â”‚       â”‚   â””â”€â”€ First Inaugural Address 1789.txt
-â”‚       â”œâ”€â”€ Thomas Jefferson/
-â”‚       â”‚   â””â”€â”€ Declaration of Independence 1776.txt
-â”‚       â””â”€â”€ ...               â† populated by scripts/fetch_texts.py
-â”œâ”€â”€ scripts/
-â”‚   â””â”€â”€ fetch_texts.py
-â””â”€â”€ src/
-    â”œâ”€â”€ main.cpp
-    â”œâ”€â”€ app.hpp / app.cpp       â† main application + event loop
-    â”œâ”€â”€ tts.hpp / tts.cpp       â† eSpeak-NG text-to-speech engine
-    â”œâ”€â”€ ocr.hpp / ocr.cpp       â† Tesseract OCR for image files
-    â”œâ”€â”€ repository.hpp / .cpp   â† author/book/page file system
-    â”œâ”€â”€ fire.hpp / fire.cpp     â† 8-bit Doom-style fire simulation
-    â””â”€â”€ woodui.hpp / .cpp       â† wood-panel 8-bit UI drawing helpers
+ CMakeLists.txt
+README.md
+assets/
+OldEnglish.ttf   add manually (free OFL font)
+fire_loop.ogg/.wav  add manually (CC0 audio)
+data/
+authors/
+George Washington/
+Farewell Address 1796.txt
+First Inaugural Address 1789.txt
+Thomas Jefferson/
+Declaration of Independence 1776.txt
+populated by scripts/fetch_texts.py
+scripts/
+fetch_texts.py
+src/
+main.cpp
+app.hpp / app.cpp  main application + event loop
+    tts.hpp / tts.cpp eSpeak-NG text-to-speech engine
+ocr.hpp / ocr.cpp  Tesseract OCR for image files
+    repository.hpp / .cpp author/book/page file system
+fire.hpp / fire.cpp 8-bit Doom-style fire simulation
+    woodui.hpp / .cpp wood-panel 8-bit UI drawing helpers
 ```
 
 ---
@@ -112,7 +112,7 @@ sudo apt install espeak-ng-data
 
 | Control         | Action                                        |
 |-----------------|-----------------------------------------------|
-| `REV` button    | Press repeatedly for x1â†’x3â†’x5â†’x10â†’x20 rewind |
+| `REV` button    | Press repeatedly for x1’x3’x5’x10’x20 rewind |
 | `FWD` button    | Same, forward                                 |
 | Click fire area | Stop seek; resume reading from current word   |
 | Any key         | Same                                          |
@@ -120,8 +120,8 @@ sudo apt install espeak-ng-data
 | `PrvBk/NxtBk`  | Jump to previous/next book by same author     |
 | `PrvAuth/NxtAuth` | Jump to previous/next author folder         |
 | `PLAY`          | Play / Pause toggle                           |
-| `T-` / `T+`     | TTS volume âˆ’5 / +5 %                          |
-| `A-` / `A+`     | Ambient fire volume âˆ’5 / +5 %                 |
+| `T-` / `T+`     | TTS volume ’5 / +5 %                          |
+| `A-` / `A+`     | Ambient fire volume ’5 / +5 %                 |
 | `ESC`           | Return to author selection menu               |
 
 ---
