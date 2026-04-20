@@ -1,7 +1,6 @@
 # =============================================================================
-#  Fireside Reader â€” CMakeLists.txt
-#  Copyright (C) 2025  Christopher T. Williams  â€” All Rights Reserved
-#  "Fireside Reader" is a trademark (TM) of Christopher T. Williams.
+#  Fireside Reader CMakeLists.txt
+#  Copyright (C) 2025  Christopher T. Williams All Rights Reserved
 #
 #  Distributed under GPL-3.0-or-later (eSpeak-NG linkage requirement).
 #  See LICENSE for full terms and third-party dependency notices.
@@ -14,7 +13,7 @@ project(FiresideReader CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# â”€â”€ SDL2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# SDL2
 find_package(SDL2 REQUIRED)
 
 # SDL2_ttf  (may not ship a cmake config on all distros)
@@ -27,12 +26,12 @@ find_path(SDL2_MIXER_INCLUDE_DIR SDL_mixer.h
     HINTS /usr/include/SDL2 /usr/local/include/SDL2)
 find_library(SDL2_MIXER_LIBRARY NAMES SDL2_mixer)
 
-# â”€â”€ eSpeak-NG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# eSpeak-NG
 find_path(ESPEAK_INCLUDE_DIR NAMES espeak-ng/speak_lib.h espeak/speak_lib.h
     HINTS /usr/include /usr/local/include)
 find_library(ESPEAK_LIBRARY NAMES espeak-ng espeak)
 
-# â”€â”€ Tesseract â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Tesseract
 find_package(Tesseract QUIET)
 if(NOT Tesseract_FOUND)
     find_path(TESSERACT_INCLUDE_DIR NAMES tesseract/baseapi.h
@@ -43,7 +42,7 @@ if(NOT Tesseract_FOUND)
     set(Tesseract_LIBRARIES    ${TESSERACT_LIBRARY} ${LEPTONICA_LIBRARY})
 endif()
 
-# â”€â”€ Sources â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Sources
 add_executable(FiresideReader
     src/main.cpp
     src/app.cpp
